@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
+from sklearn.preprocessing import LabelEncoder
 
 # Define file paths for model and scaler
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -25,6 +26,9 @@ try:
     X = data[['BMI']].values  # Explicitly select only BMI
     y = data['Obesity'].values  # Ensure correct target variable
 
+    # Encoding the Target Variable (Yes -> 1, No -> 0)
+    label_encoder = LabelEncoder()
+    y = label_encoder.fit_transform(y)
 
     # ✅ 2️⃣ Split Dataset (80% Train, 20% Test)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
